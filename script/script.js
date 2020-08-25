@@ -5,10 +5,15 @@ const headerInput = document.querySelector('.header-input');
 const todoList = document.querySelector('.todo-list');
 const todoCompleted = document.querySelector('.todo-completed');
 
-const todoData = [];
+let todoData = [];
+// todoData = localStorage.myToto;
+// console.log(todoData);
 
 // let showToDo = function () {
-//    todoData = JSON.parse(localStorage.myTodo);
+todoData = localStorage.myToto;
+todoData = todoData.split(',');
+console.log(typeof todoData);
+console.log(todoData);
 // };
 // showToDo();
 
@@ -40,8 +45,11 @@ const render = function () {
 
       const btnRecycleBin = li.querySelector('.todo-remove');
       btnRecycleBin.addEventListener('click', function () {
-         todoData.splice(item, 1);
-         localStorage.clear();
+         let index = todoData.indexOf(item);
+         todoData.splice(index, 1);
+         // localStorage.remove(item);
+         localStorage.myToto = JSON.stringify(todoData);
+         console.log(localStorage.myToto);
          render();
       });
    });
@@ -57,7 +65,10 @@ todoControl.addEventListener('submit', function (event) {
    }
    if (headerInput.value !== '') {
       todoData.push(newTodo);
-      // localStorage.setItem(headerInput.value, 'completed');
+      // localStorage.myToto = todoData;
+      // localStorage.setItem(headerInput.value, completed);
+      localStorage.myToto = JSON.stringify(todoData);
+      console.log(localStorage.myToto);
       headerInput.value = '';
       render();
    };
